@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>JOE PRUSSIAN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.jpg') }}">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <![endif]-->
+
+  <!-- Latest compiled and minified Bootstrap 4 beta CSS -->
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+        integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+        crossorigin="anonymous">
+
+  <!-- Your stuff: Third-party CSS libraries go here -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+</head>
+
+<body>
+<div class="container-fluid mt-5 pb-5">
+  <div class="row">
+    <nav class="col-md-2 sidebar navbar navbar-expand-lg navbar-light pb-4"
+         id="home-nav"
+         style="opacity: 0;">
+      <div class="sidebar-sticky">
+        <h3 class="site-heading pl-3" style="position: relative">
+          <a href="#" id="home-link">
+            JOE <br>
+            PRUSSIAN
+          </a>
+          <button class="navbar-toggler pull-right border-0 text-dark"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarNavDropdown"
+                  aria-controls="navbarNavDropdown"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                  style="position: absolute; top: 0; right: 0;">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </h3>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="nav flex-column">
+            <li class="nav-item dropdown">
+              <span class="dropdown-toggle px-3" id="shows-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Shows
+              </span>
+              <div class="dropdown-menu" aria-labelledby="shows-dropdown" style="font-size: inherit;">
+                {% for show in shows %}
+                  <span class="nav-link text-secondary py-0"
+                        id="nav-{{ show.id }}"
+                  >
+                    {{ show.name }}
+                  </span>
+              {% endfor %}
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <span class="dropdown-toggle px-3" id="artists-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Artists
+              </span>
+              <div class="dropdown-menu" aria-labelledby="artists-dropdown" style="font-size: inherit;">
+                {% for artist in artists %}
+                  <span class="nav-link text-secondary py-0"
+                        id="nav-{{ artist.id }}"
+                  >
+                    {{ artist.name }}
+                  </span>
+              {% endfor %}
+              </div>
+            </li>
+            <li class="nav-item">
+                <span class="nav-link text-secondary py-0" id="nav-about">
+                  About
+                </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-8 px-4">
+      <div class="row section px-3 active" id="section-web-home">
+        <div class="col-md-12 px-0 pb-5 text-center">
+          <h3>JOE PRUSSIAN</h3>
+          <div class="img_wrap" id="enter">
+            <h3 class="img_description">ENTER</h3>
+            <img src="{{ url_for('static', filename='images/home.jpg') }}"
+                 style="max-height: 90vh; max-width: 100%;">
+          </div>
+        </div>
+      </div>
+      {% for show in shows %}
+        <div class="row section px-3" id="section-{{ show.id }}">
+          <div class="col-12 px-0 pb-3">
+            <h4>{{ show.name }}</h4>
+            {% if show.text %}
+                {{ show.text }}
+            {% endif %}
+            <hr>
+          </div>
+          {% for image in show.images %}
+            {% if image.full_width %}
+              <div class="w-100">
+            {% endif %}
+            <div style="width: {{ image.display_width }}%;
+              {% if image.align in ['left', 'right'] %}
+                text-align: {{ image.align }};
+                {% if image.align == 'left' %}
+                  margin-right: auto;
+                {% else %}
+                  margin-left: auto;
+                {% endif %}
+              {% elif image.align == 'center' %}
+                margin: auto;
+              {% endif %}">
+              <img src="{{ url_for('static', filename='images/uploads/' + image.url) }}"
+                  style="width: 100%;">
+            </div>
+            {% if image.full_width %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endfor %}
+      {% for artist in artists %}
+        <div class="row section px-3" id="section-{{ artist.id }}">
+          {% for image in artist.images %}
+            {% if image.full_width %}
+              <div class="w-100">
+            {% endif %}
+            <div style="width: {{ image.display_width }}%;
+              {% if image.align in ['left', 'right'] %}
+                text-align: {{ image.align }};
+                {% if image.align == 'left' %}
+                  margin-right: auto;
+                {% else %}
+                  margin-left: auto;
+                {% endif %}
+              {% elif image.align == 'center' %}
+                margin: auto;
+              {% endif %}">
+              <img src="{{ url_for('static', filename='images/uploads/' + image.url) }}"
+                  style="width: 100%;">
+            </div>
+            {% if image.full_width %}
+              </div>
+            {% endif %}
+          {% endfor %}
+          <div class="col-12 px-0 pb-3">
+            <hr>
+            <h4>{{ artist.name }}</h4>
+            {% if artist.text %}
+                {{ artist.text }}
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+      <div class="row section" id="section-about" style="font-size: 1rem; line-height: 2rem;">
+        <div class="col-md-9">
+          <p>
+            JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN
+            JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN
+            JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN
+            JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN
+            JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN
+            JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN
+            JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN
+          </p>
+        </div>
+      </div>
+    </main>
+    <div class="col-md-2"></div>
+  </div>
+</div>
+<div class="footer">
+  <p>
+    © 2019 JOE PRUSSIAN
+    <a href="{{ url_for('sections') }}"
+       class="btn btn-outline-light text-light mr-3"
+       style="padding: 0; font-size: 0.5rem; float: right;">
+      admin
+    </a>
+  </p>
+</div>
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<!-- Required by Bootstrap v4 beta -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<!--Custom js-->
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+</html>
+

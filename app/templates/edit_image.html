@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Image</title>
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+        integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+        crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <div class="row justify-content-center mt-5 ">
+    <div class="col-md-6">
+      <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" class="form-control" id="title" name="title" value="{{ image.title }}" required>
+          <label for="section">Section</label>
+          <select class="form-control" id="section" name="section" required>
+            {% for s in sections %}
+              <option {% if section == s %}selected{% endif %}>{{ s }}</option>
+            {% endfor %}
+          </select>
+          <label for="display_width">Display Width (0-100)</label>
+          <input type="number" class="form-control" id="display_width" name="display_width" value="{{ image.display_width }}" required>
+          <label for="align">Align</label>
+          <select class="form-control" id="align" name="align" required>
+            <option {% if image.align == 'left' %}selected{% endif %}>left</option>
+            <option {% if image.align == 'center' %}selected{% endif %}>center</option>
+            <option {% if image.align == 'right' %}selected{% endif %}>right</option>
+          </select>
+          <label for="full_width">Full Width</label>
+          <select class="form-control" id="full_width" name="full_width" required>
+            <option {% if image.full_width %}selected{% endif %}>true</option>
+            <option {% if not image.full_width %}selected{% endif %}>false</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

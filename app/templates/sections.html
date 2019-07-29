@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ADMIN</title>
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+        integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+        crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+</head>
+<body style="font-size: 1rem;">
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-12">
+      <h3 class="pb-3">
+        ADMIN
+        <a href="{{ url_for('home') }}"
+           class="btn btn-outline-primary"
+           style="float: right;">
+          Home
+        </a>
+      </h3>
+      <h3 class="pb-3">
+        <a href="{{ url_for('new_section') }}"
+           class="btn btn-outline-dark">
+          New Section
+        </a>
+        <a href="{{ url_for('new_home_image') }}"
+           class="btn btn-outline-dark">
+          New Home Image
+        </a>
+      </h3>
+      <button class="btn btn-outline-dark w-100 my-3" type="button" data-toggle="collapse" data-target="#shows-collapse" aria-expanded="false" aria-controls="collapseExample">
+        <h4 class="m-0">SHOWS</h4>
+      </button>
+      <div class="collapse" id="shows-collapse">
+        {% for section in shows %}
+        <div class="card mb-3" id="section-{{ section.id }}">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ section.name }}
+              <a href="{{ url_for('edit_section', section_id=section.id) }}"
+                 class="btn btn-outline-primary btn-sm ml-2">
+                <i class="fa fa-pencil" style="pointer-events: none"></i>
+              </a>
+              <button id="delete-section-{{ section.id }}"
+                      class="delete-section btn btn-sm btn-outline-danger ml-1"
+                      style="float: right;">
+                <i class="fa fa-times" style="pointer-events: none"></i>
+              </button>
+              <button id="shift-section-down-{{ section.id }}"
+                      class="shift-section-down btn btn-sm btn-outline-success ml-1"
+                      style="float: right;">
+                <i class="fa fa-arrow-down" style="pointer-events: none"></i>
+              </button>
+              <button id="shift-section-up-{{ section.id }}"
+                      class="shift-section-up btn btn-sm btn-outline-success ml-1"
+                      style="float: right;">
+                <i class="fa fa-arrow-up" style="pointer-events: none"></i>
+              </button>
+              <a href="{{ url_for('upload', section_id=section.id) }}"
+                 class="btn btn-outline-dark btn-sm"
+                 style="float: right;">
+                Upload
+              </a>
+            </h5>
+            <hr>
+            <ol>
+              {% for image in section.images %}
+                <li class="py-3 section-image" id="image-{{ image.id }}">
+                  {{ image.title }}
+                  <button id="delete-image-{{ section.id }}-{{ image.id }}"
+                          class="delete-image btn btn-outline-danger btn-sm ml-1"
+                          style="float: right;">
+                    <i class="fa fa-times" style="pointer-events: none"></i>
+                  </button>
+                  <button id="shift-image-down-{{ section.id }}-{{ image.id }}"
+                          class="shift-image-down btn btn-sm btn-outline-success ml-1"
+                          style="float: right;">
+                    <i class="fa fa-arrow-down" style="pointer-events: none"></i>
+                  </button>
+                  <button id="shift-image-up-{{ section.id }}-{{ image.id }}"
+                          class="shift-image-up btn btn-sm btn-outline-success ml-1"
+                          style="float: right;">
+                    <i class="fa fa-arrow-up" style="pointer-events: none"></i>
+                  </button>
+                  <a href="{{ url_for('edit_image', image_id=image.id, section_id=section.id) }}"
+                     class="btn btn-outline-primary btn-sm"
+                     style="float: right;">
+                    <i class="fa fa-pencil" style="pointer-events: none"></i>
+                  </a>
+                  <br>
+                  <small>
+                    {{ image.display_width }}% |
+                    {{ image.align }} |
+                    Full width: {{ image.full_width }}
+                  </small>
+                </li>
+              {% endfor %}
+            </ol>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <button class="btn btn-outline-dark w-100 my-3" type="button" data-toggle="collapse" data-target="#artists-collapse" aria-expanded="false" aria-controls="collapseExample">
+        <h4 class="m-0">ARTISTS</h4>
+      </button>
+      <div class="collapse" id="artists-collapse">
+        {% for section in artists %}
+        <div class="card mb-3" id="section-{{ section.id }}">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ section.name }}
+              <a href="{{ url_for('edit_section', section_id=section.id) }}"
+                 class="btn btn-outline-primary btn-sm ml-2">
+                <i class="fa fa-pencil" style="pointer-events: none"></i>
+              </a>
+              <button id="delete-section-{{ section.id }}"
+                      class="delete-section btn btn-sm btn-outline-danger ml-1"
+                      style="float: right;">
+                <i class="fa fa-times" style="pointer-events: none"></i>
+              </button>
+              <button id="shift-section-down-{{ section.id }}"
+                      class="shift-section-down btn btn-sm btn-outline-success ml-1"
+                      style="float: right;">
+                <i class="fa fa-arrow-down" style="pointer-events: none"></i>
+              </button>
+              <button id="shift-section-up-{{ section.id }}"
+                      class="shift-section-up btn btn-sm btn-outline-success ml-1"
+                      style="float: right;">
+                <i class="fa fa-arrow-up" style="pointer-events: none"></i>
+              </button>
+              <a href="{{ url_for('upload', section_id=section.id) }}"
+                 class="btn btn-outline-dark btn-sm"
+                 style="float: right;">
+                Upload
+              </a>
+            </h5>
+            <hr>
+            <ol>
+              {% for image in section.images %}
+                <li class="py-3 section-image" id="image-{{ image.id }}">
+                  {{ image.title }}
+                  <button id="delete-image-{{ section.id }}-{{ image.id }}"
+                          class="delete-image btn btn-outline-danger btn-sm ml-1"
+                          style="float: right;">
+                    <i class="fa fa-times" style="pointer-events: none"></i>
+                  </button>
+                  <button id="shift-image-down-{{ section.id }}-{{ image.id }}"
+                          class="shift-image-down btn btn-sm btn-outline-success ml-1"
+                          style="float: right;">
+                    <i class="fa fa-arrow-down" style="pointer-events: none"></i>
+                  </button>
+                  <button id="shift-image-up-{{ section.id }}-{{ image.id }}"
+                          class="shift-image-up btn btn-sm btn-outline-success ml-1"
+                          style="float: right;">
+                    <i class="fa fa-arrow-up" style="pointer-events: none"></i>
+                  </button>
+                  <a href="{{ url_for('edit_image', image_id=image.id, section_id=section.id) }}"
+                     class="btn btn-outline-primary btn-sm"
+                     style="float: right;">
+                    <i class="fa fa-pencil" style="pointer-events: none"></i>
+                  </a>
+                  <br>
+                  <small>
+                    {{ image.display_width }}% |
+                    {{ image.align }} |
+                    Full width: {{ image.full_width }}
+                  </small>
+                </li>
+              {% endfor %}
+            </ol>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<!-- Required by Bootstrap v4 beta -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+          integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+          crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+        crossorigin="anonymous"></script>
+<!--Custom js-->
+<script>
+  var deleteImageUrl = "{{ url_for('delete_image') }}",
+    shiftImageUrl = "{{ url_for('shift_image_position') }}",
+    shiftSectionUrl = "{{ url_for('shift_section_position') }}";
+</script>
+<script src="{{ url_for('static', filename='js/sections.js') }}"></script>
+</body>
+</html>
