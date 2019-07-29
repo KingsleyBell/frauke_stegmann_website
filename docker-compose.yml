@@ -7,9 +7,9 @@ services:
     ports:
       - "8004:8004"
     volumes:
-      - /home/ubuntu/joe_prussian/app/static/db/db.json:/app/static/db/db.json
-      - /home/ubuntu/joe_prussian/app/static/images/:/app/static/images/
-      - /home/ubuntu/joe_prussian/app/static/pdf/:/app/static/pdf/
+      - /home/ubuntu/frauke_stegmann_website/app/static/db/db.json:/app/static/db/db.json
+      - /home/ubuntu/frauke_stegmann_website/app/static/images/:/app/static/images/
+      - /home/ubuntu/frauke_stegmann_website/app/static/pdf/:/app/static/pdf/
     env_file:
       - "envfile"
 networks:
