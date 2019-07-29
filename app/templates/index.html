@@ -34,21 +34,14 @@
 <body>
 <div class="container-fluid mt-5 pb-5">
   <div class="row">
-    <nav class="col-md-2 sidebar navbar navbar-expand-lg navbar-light pb-4"
+    <nav class="col-lg-2 sidebar navbar navbar-expand-lg navbar-light  pl-0 pb-4"
          id="home-nav"
-         style="opacity: 0;">
+         style="opacity: 0; border-right: 1px solid grey;">
       <div class="sidebar-sticky">
         <h4 class="site-heading pl-3" style="position: relative">
           <a href="#" id="home-link">
             FRAUKE <br>
-            STEGMANN / <br>
-            <small class="text-danger">
-              ARCHIVE / <br>
-            </small>
-            <small><small>
-              I need time to <br>
-              think about wildlife
-            </small></small>
+            STEGMANN
           </a>
           <button class="navbar-toggler pull-right border-0 text-dark"
                   type="button"
@@ -61,14 +54,15 @@
             <span class="navbar-toggler-icon"></span>
           </button>
         </h4>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="collapse navbar-collapse col-lg-2 pl-0 pr-5" id="navbarNavDropdown">
           <ul class="nav flex-column">
             {% for link in db %}
             <li class="nav-item">
                 <span class="nav-link text-secondary py-0"
                       id="nav-{{ link.id }}"
                 >
-                  {{ link.id }}
+                  {{ link.name }}
+                  <hr class="my-1">
                 </span>
             </li>
             {% endfor %}
@@ -82,19 +76,28 @@
       </div>
     </nav>
 
-    <main role="main" class="col-md-8 px-4">
-      <div class="row section px-3 active" id="section-web-home">
-        <div class="col-md-12 px-0 pb-5 text-center">
+    <main role="main" class="col-lg-8 px-4">
+      <div class="row justify-content-center section px-3 active" id="section-web-home">
+        <div class="col-lg-8 px-0 pb-5">
           <h3>
             FRAUKE STEGMANN / <br>
-            ARCHIVE / <br>
+            <span class="text-danger">ARCHIVE / </span><br>
             I need time to think about wildlife
           </h3>
-          <div class="img_wrap" id="enter">
+          <div class="img_wrap pt-3" id="enter">
             <h3 class="img_description">ENTER</h3>
             <img src="{{ url_for('static', filename='images/home.jpg') }}"
-                 style="max-height: 90vh; max-width: 100%;">
+                 style="width: 100%;">
           </div>
+        </div>
+      </div>
+      <div class="row section px-3">
+        <div class="col-lg-12 px-0 pb-3">
+          <h3>
+            <span class="text-danger">ARCHIVE / </span>
+            <small>I need time to think about wildlife</small>
+            <hr>
+          </h3>
         </div>
       </div>
       {% for section in db %}
@@ -133,7 +136,7 @@
         </div>
       {% endfor %}
       <div class="row section" id="section-about" style="font-size: 1rem; line-height: 2rem;">
-        <div class="col-md-9">
+        <div class="col-lg-9">
           <p>
             Club 2000, aka Studio Frauke Stegmann, is a graphic design practice that uses, among other, DIY models (low-tech production methods extending to any material choice) and the handmade to produce graphic design as "haute couture".
 
@@ -148,7 +151,7 @@
         </div>
       </div>
     </main>
-    <div class="col-md-2"></div>
+    <div class="col-lg-2"></div>
   </div>
 </div>
 <div class="footer">

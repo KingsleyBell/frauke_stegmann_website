@@ -53,8 +53,10 @@ body {
     /* For desktop: */
     .sidebar-sticky {
         position: fixed;
+        overflow-y: scroll;
         top: 3rem;
         left: 3rem;
+        bottom: 0;
     }
 
     .site-heading {

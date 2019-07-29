@@ -55,7 +55,7 @@ def new_section():
         section_name = request.form.get('section')
         section_dict = {
             'id': section_id,
-            'name': section_name
+            'name': section_name,
             'text': '',
             'images': []
         }
@@ -175,7 +175,6 @@ def upload(section_id=None):
         image_dict = {
             "id": image_id,
             "url": f'{subdir}/{filename}',
-            "title": title,
             "display_width": display_width,
             "align": align,
             "full_width": full_width
