@@ -214,18 +214,14 @@ def shift_section_position():
     db = json.loads(open(db_path, 'r').read())
 
     section = [s for s in db if s['id'] == section_id][0]
-    type_db = [s for s in db if s['type'] == section['type']]
     section_index = db.index(section)
-    section_type_index = type_db.index(section)
 
-    if section_type_index == 0 and shift < 0:  # can't shift up if at top
+    if section_index == 0 and shift < 0:  # can't shift up if at top
         return jsonify({'success': False})
-    if section_type_index == len(db) - 1 and shift > 0:  # Can't shift down if at bottom
+    if section_index == len(db) - 1 and shift > 0:  # Can't shift down if at bottom
         return jsonify({'success': False})
 
-    swap_index = db.index(type_db[section_type_index + shift])
-
-    db[section_index], db[swap_index] = db[swap_index], db[section_index]
+    db[section_index], db[section_index + shift] = db[section_index + shift], db[section_index]
 
     with open(db_path, 'w') as db_write:
         db_write.write(json.dumps(db))
