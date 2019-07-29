@@ -11,7 +11,7 @@ $(document).ready(function() {
     e.preventDefault();
     $("body,html").animate(
       {
-        scrollTop: $(".section").first().offset().top
+        scrollTop: 0
       },
       800 //speed
     );
