@@ -15,12 +15,9 @@ application = Flask(__name__)
 def home():
     db_path = os.path.join(application.static_folder, 'db/db.json')
     db = json.loads(open(db_path, 'r').read())
-    shows = [section for section in db if section['type'] == 'show']
-    artists = [section for section in db if section['type'] == 'artist']
     return render_template(
         'index.html',
-        shows=shows,
-        artists=artists
+        db=db
     )
 
 

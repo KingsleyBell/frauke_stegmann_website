@@ -3,25 +3,32 @@ $(document).ready(function() {
     $("#section-web-home").hide();
     $("#section-web-home").removeClass("section");
     $("#home-nav").css("opacity", 1);
-    $(".section").first().addClass("active");
+    $(".section").addClass("active");
     $(".nav-link").first().addClass("active");
   });
 
   $("#home-link").click(function(e) {
     e.preventDefault();
-    $(".section.active").removeClass("active");
+    $("body,html").animate(
+      {
+        scrollTop: $(".section").first().offset().top
+      },
+      800 //speed
+    );
     $(".nav-link.active").removeClass("active");
-    $(".section").first().addClass("active");
     $(".nav-link").first().addClass("active");
   });
 
   $(".nav-link").click(function(e) {
     var targetId = e.target.id.split("-"),
     linkId = targetId[targetId.length - 1];
-    $(".section.active").removeClass("active");
     $(".nav-link.active").removeClass("active");
-
-    $("#section-" + linkId).addClass("active");
+    $("body,html").animate(
+      {
+        scrollTop: $("#section-" + linkId).offset().top
+      },
+      800 //speed
+    );
     $(this).addClass("active");
   });
 });

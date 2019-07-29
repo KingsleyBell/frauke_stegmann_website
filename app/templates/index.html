@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>JOE PRUSSIAN</title>
+  <title>FRAUKE STEGMANN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -38,10 +38,17 @@
          id="home-nav"
          style="opacity: 0;">
       <div class="sidebar-sticky">
-        <h3 class="site-heading pl-3" style="position: relative">
+        <h4 class="site-heading pl-3" style="position: relative">
           <a href="#" id="home-link">
-            JOE <br>
-            PRUSSIAN
+            FRAUKE <br>
+            STEGMANN / <br>
+            <small class="text-danger">
+              ARCHIVE / <br>
+            </small>
+            <small><small>
+              I need time to <br>
+              think about wildlife
+            </small></small>
           </a>
           <button class="navbar-toggler pull-right border-0 text-dark"
                   type="button"
@@ -53,37 +60,18 @@
                   style="position: absolute; top: 0; right: 0;">
             <span class="navbar-toggler-icon"></span>
           </button>
-        </h3>
+        </h4>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="nav flex-column">
-            <li class="nav-item dropdown">
-              <span class="dropdown-toggle px-3" id="shows-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Shows
-              </span>
-              <div class="dropdown-menu" aria-labelledby="shows-dropdown" style="font-size: inherit;">
-                {% for show in shows %}
-                  <span class="nav-link text-secondary py-0"
-                        id="nav-{{ show.id }}"
-                  >
-                    {{ show.name }}
-                  </span>
-              {% endfor %}
-              </div>
+            {% for link in db %}
+            <li class="nav-item">
+                <span class="nav-link text-secondary py-0"
+                      id="nav-{{ link.id }}"
+                >
+                  {{ link.id }}
+                </span>
             </li>
-            <li class="nav-item dropdown">
-              <span class="dropdown-toggle px-3" id="artists-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Artists
-              </span>
-              <div class="dropdown-menu" aria-labelledby="artists-dropdown" style="font-size: inherit;">
-                {% for artist in artists %}
-                  <span class="nav-link text-secondary py-0"
-                        id="nav-{{ artist.id }}"
-                  >
-                    {{ artist.name }}
-                  </span>
-              {% endfor %}
-              </div>
-            </li>
+            {% endfor %}
             <li class="nav-item">
                 <span class="nav-link text-secondary py-0" id="nav-about">
                   About
@@ -97,7 +85,11 @@
     <main role="main" class="col-md-8 px-4">
       <div class="row section px-3 active" id="section-web-home">
         <div class="col-md-12 px-0 pb-5 text-center">
-          <h3>JOE PRUSSIAN</h3>
+          <h3>
+            FRAUKE STEGMANN / <br>
+            ARCHIVE / <br>
+            I need time to think about wildlife
+          </h3>
           <div class="img_wrap" id="enter">
             <h3 class="img_description">ENTER</h3>
             <img src="{{ url_for('static', filename='images/home.jpg') }}"
@@ -105,16 +97,14 @@
           </div>
         </div>
       </div>
-      {% for show in shows %}
-        <div class="row section px-3" id="section-{{ show.id }}">
+      {% for section in db %}
+        <div class="row section p-3" id="section-{{ section.id }}">
           <div class="col-12 px-0 pb-3">
-            <h4>{{ show.name }}</h4>
-            {% if show.text %}
-                {{ show.text }}
+            {% if section.text %}
+                {{ section.text }}
             {% endif %}
-            <hr>
           </div>
-          {% for image in show.images %}
+          {% for image in section.images %}
             {% if image.full_width %}
               <div class="w-100">
             {% endif %}
@@ -129,58 +119,31 @@
               {% elif image.align == 'center' %}
                 margin: auto;
               {% endif %}">
-              <img src="{{ url_for('static', filename='images/uploads/' + image.url) }}"
-                  style="width: 100%;">
+              <img class="py-2"
+                   src="{{ url_for('static', filename='images/uploads/' + image.url) }}"
+                   style="width: 100%;">
             </div>
             {% if image.full_width %}
               </div>
             {% endif %}
           {% endfor %}
-        </div>
-      {% endfor %}
-      {% for artist in artists %}
-        <div class="row section px-3" id="section-{{ artist.id }}">
-          {% for image in artist.images %}
-            {% if image.full_width %}
-              <div class="w-100">
-            {% endif %}
-            <div style="width: {{ image.display_width }}%;
-              {% if image.align in ['left', 'right'] %}
-                text-align: {{ image.align }};
-                {% if image.align == 'left' %}
-                  margin-right: auto;
-                {% else %}
-                  margin-left: auto;
-                {% endif %}
-              {% elif image.align == 'center' %}
-                margin: auto;
-              {% endif %}">
-              <img src="{{ url_for('static', filename='images/uploads/' + image.url) }}"
-                  style="width: 100%;">
-            </div>
-            {% if image.full_width %}
-              </div>
-            {% endif %}
-          {% endfor %}
-          <div class="col-12 px-0 pb-3">
+          <div class="col-12">
             <hr>
-            <h4>{{ artist.name }}</h4>
-            {% if artist.text %}
-                {{ artist.text }}
-            {% endif %}
           </div>
         </div>
       {% endfor %}
       <div class="row section" id="section-about" style="font-size: 1rem; line-height: 2rem;">
         <div class="col-md-9">
           <p>
-            JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN
-            JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN
-            JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN
-            JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN
-            JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN
-            JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN
-            JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN JOE PRUSSIAN
+            Club 2000, aka Studio Frauke Stegmann, is a graphic design practice that uses, among other, DIY models (low-tech production methods extending to any material choice) and the handmade to produce graphic design as "haute couture".
+
+            The studio coordinates continuous research by, for example, using sites (objects, places, memory, people, the body, experiences) as opportunities for intervention to communicate an alternative (or additional) version of the tactile experience.
+
+            “I was impressed with Frauke Stegmann’s work, especially its significant understanding of material and context. She appreciates how the values and codes inherent in materials can be used to communicate effectively and with great economy. Her choice of ‘found’ resources - transposed from their original context and creatively repositioned - displays innovation with a remarkable and contemporary lightness of touch.” (Peter Saville)
+
+            Frauke Stegmann is a graduate from the Royal College of Art in London, nominated among other, by Creative Review UK as “10 Women to Watch”, “Future of Fashion”, shortlisted for the British Arts Foundation Award for Design, included in the Phaidon 100 Graphic Designers list, the I.D. 40 global designers list and D&AD new generation of Graphic Designers list.
+
+            {Geographically speaking, Club 2000 is located in Windhoek, Namibia, and was a discotheque in the 1980s, situated inside a hotel which was built in the late 1940s - both dates important political moments - 1948 South Africa subsumes itself into a regime of segregation (in 1951, South Africa extends apartheid laws to Namibia), the fall of the Berlin wall in 1989 changes the face of politics and contributes to Namibia’s Independence.}
           </p>
         </div>
       </div>
@@ -190,7 +153,7 @@
 </div>
 <div class="footer">
   <p>
-    © 2019 JOE PRUSSIAN
+    © 2019 FRAUKE STEGMANN
     <a href="{{ url_for('sections') }}"
        class="btn btn-outline-light text-light mr-3"
        style="padding: 0; font-size: 0.5rem; float: right;">
@@ -204,8 +167,8 @@
 <!-- Placed at the end of the document so the pages load faster -->
 
 <!-- Required by Bootstrap v4 beta -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
