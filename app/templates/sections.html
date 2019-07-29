@@ -34,150 +34,73 @@
           New Home Image
         </a>
       </h3>
-      <button class="btn btn-outline-dark w-100 my-3" type="button" data-toggle="collapse" data-target="#shows-collapse" aria-expanded="false" aria-controls="collapseExample">
-        <h4 class="m-0">SHOWS</h4>
-      </button>
-      <div class="collapse" id="shows-collapse">
-        {% for section in shows %}
-        <div class="card mb-3" id="section-{{ section.id }}">
-          <div class="card-body">
-            <h5 class="card-title">
-              {{ section.name }}
-              <a href="{{ url_for('edit_section', section_id=section.id) }}"
-                 class="btn btn-outline-primary btn-sm ml-2">
-                <i class="fa fa-pencil" style="pointer-events: none"></i>
-              </a>
-              <button id="delete-section-{{ section.id }}"
-                      class="delete-section btn btn-sm btn-outline-danger ml-1"
-                      style="float: right;">
-                <i class="fa fa-times" style="pointer-events: none"></i>
-              </button>
-              <button id="shift-section-down-{{ section.id }}"
-                      class="shift-section-down btn btn-sm btn-outline-success ml-1"
-                      style="float: right;">
-                <i class="fa fa-arrow-down" style="pointer-events: none"></i>
-              </button>
-              <button id="shift-section-up-{{ section.id }}"
-                      class="shift-section-up btn btn-sm btn-outline-success ml-1"
-                      style="float: right;">
-                <i class="fa fa-arrow-up" style="pointer-events: none"></i>
-              </button>
-              <a href="{{ url_for('upload', section_id=section.id) }}"
-                 class="btn btn-outline-dark btn-sm"
-                 style="float: right;">
-                Upload
-              </a>
-            </h5>
-            <hr>
-            <ol>
-              {% for image in section.images %}
-                <li class="py-3 section-image" id="image-{{ image.id }}">
-                  {{ image.title }}
-                  <button id="delete-image-{{ section.id }}-{{ image.id }}"
-                          class="delete-image btn btn-outline-danger btn-sm ml-1"
-                          style="float: right;">
-                    <i class="fa fa-times" style="pointer-events: none"></i>
-                  </button>
-                  <button id="shift-image-down-{{ section.id }}-{{ image.id }}"
-                          class="shift-image-down btn btn-sm btn-outline-success ml-1"
-                          style="float: right;">
-                    <i class="fa fa-arrow-down" style="pointer-events: none"></i>
-                  </button>
-                  <button id="shift-image-up-{{ section.id }}-{{ image.id }}"
-                          class="shift-image-up btn btn-sm btn-outline-success ml-1"
-                          style="float: right;">
-                    <i class="fa fa-arrow-up" style="pointer-events: none"></i>
-                  </button>
-                  <a href="{{ url_for('edit_image', image_id=image.id, section_id=section.id) }}"
-                     class="btn btn-outline-primary btn-sm"
-                     style="float: right;">
-                    <i class="fa fa-pencil" style="pointer-events: none"></i>
-                  </a>
-                  <br>
-                  <small>
-                    {{ image.display_width }}% |
-                    {{ image.align }} |
-                    Full width: {{ image.full_width }}
-                  </small>
-                </li>
-              {% endfor %}
-            </ol>
-          </div>
+      {% for section in db %}
+      <div class="card mb-3" id="section-{{ section.id }}">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ section.name }}
+            <a href="{{ url_for('edit_section', section_id=section.id) }}"
+               class="btn btn-outline-primary btn-sm ml-2">
+              <i class="fa fa-pencil" style="pointer-events: none"></i>
+            </a>
+            <button id="delete-section-{{ section.id }}"
+                    class="delete-section btn btn-sm btn-outline-danger ml-1"
+                    style="float: right;">
+              <i class="fa fa-times" style="pointer-events: none"></i>
+            </button>
+            <button id="shift-section-down-{{ section.id }}"
+                    class="shift-section-down btn btn-sm btn-outline-success ml-1"
+                    style="float: right;">
+              <i class="fa fa-arrow-down" style="pointer-events: none"></i>
+            </button>
+            <button id="shift-section-up-{{ section.id }}"
+                    class="shift-section-up btn btn-sm btn-outline-success ml-1"
+                    style="float: right;">
+              <i class="fa fa-arrow-up" style="pointer-events: none"></i>
+            </button>
+            <a href="{{ url_for('upload', section_id=section.id) }}"
+               class="btn btn-outline-dark btn-sm"
+               style="float: right;">
+              Upload
+            </a>
+          </h5>
+          <hr>
+          <ol>
+            {% for image in section.images %}
+              <li class="py-3 section-image" id="image-{{ image.id }}">
+                {{ image.url }}
+                <button id="delete-image-{{ section.id }}-{{ image.id }}"
+                        class="delete-image btn btn-outline-danger btn-sm ml-1"
+                        style="float: right;">
+                  <i class="fa fa-times" style="pointer-events: none"></i>
+                </button>
+                <button id="shift-image-down-{{ section.id }}-{{ image.id }}"
+                        class="shift-image-down btn btn-sm btn-outline-success ml-1"
+                        style="float: right;">
+                  <i class="fa fa-arrow-down" style="pointer-events: none"></i>
+                </button>
+                <button id="shift-image-up-{{ section.id }}-{{ image.id }}"
+                        class="shift-image-up btn btn-sm btn-outline-success ml-1"
+                        style="float: right;">
+                  <i class="fa fa-arrow-up" style="pointer-events: none"></i>
+                </button>
+                <a href="{{ url_for('edit_image', image_id=image.id, section_id=section.id) }}"
+                   class="btn btn-outline-primary btn-sm"
+                   style="float: right;">
+                  <i class="fa fa-pencil" style="pointer-events: none"></i>
+                </a>
+                <br>
+                <small>
+                  {{ image.display_width }}% |
+                  {{ image.align }} |
+                  Full width: {{ image.full_width }}
+                </small>
+              </li>
+            {% endfor %}
+          </ol>
         </div>
-        {% endfor %}
       </div>
-      <button class="btn btn-outline-dark w-100 my-3" type="button" data-toggle="collapse" data-target="#artists-collapse" aria-expanded="false" aria-controls="collapseExample">
-        <h4 class="m-0">ARTISTS</h4>
-      </button>
-      <div class="collapse" id="artists-collapse">
-        {% for section in artists %}
-        <div class="card mb-3" id="section-{{ section.id }}">
-          <div class="card-body">
-            <h5 class="card-title">
-              {{ section.name }}
-              <a href="{{ url_for('edit_section', section_id=section.id) }}"
-                 class="btn btn-outline-primary btn-sm ml-2">
-                <i class="fa fa-pencil" style="pointer-events: none"></i>
-              </a>
-              <button id="delete-section-{{ section.id }}"
-                      class="delete-section btn btn-sm btn-outline-danger ml-1"
-                      style="float: right;">
-                <i class="fa fa-times" style="pointer-events: none"></i>
-              </button>
-              <button id="shift-section-down-{{ section.id }}"
-                      class="shift-section-down btn btn-sm btn-outline-success ml-1"
-                      style="float: right;">
-                <i class="fa fa-arrow-down" style="pointer-events: none"></i>
-              </button>
-              <button id="shift-section-up-{{ section.id }}"
-                      class="shift-section-up btn btn-sm btn-outline-success ml-1"
-                      style="float: right;">
-                <i class="fa fa-arrow-up" style="pointer-events: none"></i>
-              </button>
-              <a href="{{ url_for('upload', section_id=section.id) }}"
-                 class="btn btn-outline-dark btn-sm"
-                 style="float: right;">
-                Upload
-              </a>
-            </h5>
-            <hr>
-            <ol>
-              {% for image in section.images %}
-                <li class="py-3 section-image" id="image-{{ image.id }}">
-                  {{ image.title }}
-                  <button id="delete-image-{{ section.id }}-{{ image.id }}"
-                          class="delete-image btn btn-outline-danger btn-sm ml-1"
-                          style="float: right;">
-                    <i class="fa fa-times" style="pointer-events: none"></i>
-                  </button>
-                  <button id="shift-image-down-{{ section.id }}-{{ image.id }}"
-                          class="shift-image-down btn btn-sm btn-outline-success ml-1"
-                          style="float: right;">
-                    <i class="fa fa-arrow-down" style="pointer-events: none"></i>
-                  </button>
-                  <button id="shift-image-up-{{ section.id }}-{{ image.id }}"
-                          class="shift-image-up btn btn-sm btn-outline-success ml-1"
-                          style="float: right;">
-                    <i class="fa fa-arrow-up" style="pointer-events: none"></i>
-                  </button>
-                  <a href="{{ url_for('edit_image', image_id=image.id, section_id=section.id) }}"
-                     class="btn btn-outline-primary btn-sm"
-                     style="float: right;">
-                    <i class="fa fa-pencil" style="pointer-events: none"></i>
-                  </a>
-                  <br>
-                  <small>
-                    {{ image.display_width }}% |
-                    {{ image.align }} |
-                    Full width: {{ image.full_width }}
-                  </small>
-                </li>
-              {% endfor %}
-            </ol>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
+      {% endfor %}
     </div>
   </div>
 </div>

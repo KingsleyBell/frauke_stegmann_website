@@ -26,8 +26,6 @@ def home():
 def sections():
     db_path = os.path.join(application.static_folder, 'db/db.json')
     db = json.loads(open(db_path, 'r').read())
-    shows = [section for section in db if section['type'] == 'show']
-    artists = [section for section in db if section['type'] == 'artist']
     if request.method == 'POST':  # Delete section
         section_id = request.form.get('section_id')
 
@@ -41,7 +39,7 @@ def sections():
 
         return jsonify({'success': True})
     else:
-        return render_template('sections.html', shows=shows, artists=artists)
+        return render_template('sections.html', db=db)
 
 
 @application.route('/new_section/', methods=['GET', 'POST'])
@@ -50,9 +48,8 @@ def new_section():
     db_path = os.path.join(application.static_folder, 'db/db.json')
     db = json.loads(open(db_path, 'r').read())
     if request.method == 'POST':
-        section_ids = [s['id'] for s in db]
-        section_id = max(section_ids + [0]) + 1
         section_name = request.form.get('section')
+        section_id = re.sub('[^A-Za-z0-9]+', '_', section_name).lower()
         section_dict = {
             'id': section_id,
             'name': section_name,
@@ -78,7 +75,9 @@ def edit_section(section_id):
         section_name = request.form.get('name')
         section_id = re.sub('[^A-Za-z0-9]+', '_', section_name).lower()
         section_text = request.form.get('text')
+
         section['name'] = section_name
+        section['id'] = section_id
         section['text'] = section_text
 
         with open(db_path, 'w') as db_write:

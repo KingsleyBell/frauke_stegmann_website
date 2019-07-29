@@ -14,7 +14,7 @@ $(document).ready(function() {
         if (response.success === true) {
           var section = $("#section-" + sectionId),
             nextSection = section.next('.card');
-          $(section).before(nextSection);
+          $(section).hide().before(nextSection).slideToggle("slow");
         }
       }
     });
@@ -31,7 +31,7 @@ $(document).ready(function() {
         if (response.success === true) {
           var section = $("#section-" + sectionId),
             previousSection = section.prev('.card');
-          $(section).after(previousSection);
+          $(section).hide().after(previousSection).slideToggle("slow");
         }
       }
     });
@@ -49,7 +49,7 @@ $(document).ready(function() {
         if (response.success === true) {
           var image = $("#image-" + imageId),
             nextImage = image.next('.section-image');
-          $(image).before(nextImage);
+          $(image).hide().before(nextImage).slideToggle("slow");
         }
       }
     });
@@ -67,7 +67,7 @@ $(document).ready(function() {
         if (response.success === true) {
           var image = $("#image-" + imageId),
             previousImage = image.prev('.section-image');
-          $(image).after(previousImage);
+          $(image).hide().after(previousImage).slideToggle("slow");
         }
       }
     });
