@@ -15,9 +15,6 @@
     <div class="col-md-6">
       <form method="post" enctype="multipart/form-data">
         <div class="form-group">
-          <label for="title">Title</label>
-          <input type="text" class="form-control" id="title" name="title" value="{{ image.title }}" required>
-          <label for="section">Section</label>
           <select class="form-control" id="section" name="section" required>
             {% for s in sections %}
               <option {% if section == s %}selected{% endif %}>{{ s }}</option>
