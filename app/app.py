@@ -50,13 +50,12 @@ def new_section():
     db_path = os.path.join(application.static_folder, 'db/db.json')
     db = json.loads(open(db_path, 'r').read())
     if request.method == 'POST':
+        section_ids = [s['id'] for s in db]
+        section_id = max(section_ids + [0]) + 1
         section_name = request.form.get('section')
-        section_id = re.sub('[^A-Za-z0-9]+', '_', section_name).lower()
-        section_type = request.form.get('type')
         section_dict = {
-            'type': section_type,
-            'name': section_name,
             'id': section_id,
+            'name': section_name
             'text': '',
             'images': []
         }
@@ -78,12 +77,8 @@ def edit_section(section_id):
     if request.method == 'POST':
         section_name = request.form.get('name')
         section_id = re.sub('[^A-Za-z0-9]+', '_', section_name).lower()
-        section_type = request.form.get('type')
         section_text = request.form.get('text')
-
         section['name'] = section_name
-        section['id'] = section_id
-        section['type'] = section_type
         section['text'] = section_text
 
         with open(db_path, 'w') as db_write:

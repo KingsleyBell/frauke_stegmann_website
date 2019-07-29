@@ -19,13 +19,6 @@
           <input type="text" class="form-control" id="name" name="name" value="{{ section.name }}">
         </div>
         <div class="form-group">
-          <label for="type">Type</label>
-          <select class="form-control" id="type" name="type" required>
-              <option {% if section.type == 'show' %}selected{% endif %}>show</option>
-              <option {% if section.type == 'artist' %}selected{% endif %}>artist</option>
-          </select>
-        </div>
-        <div class="form-group">
           <label for="text">Text</label>
           <input type="text" class="form-control" id="text" name="text" value="{{ section.text }}">
         </div>
