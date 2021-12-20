@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 import os
 import re
@@ -17,7 +18,8 @@ def home():
     db = json.loads(open(db_path, 'r').read())
     return render_template(
         'index.html',
-        db=db
+        db=db,
+        now=datetime.utcnow()
     )
 
 
